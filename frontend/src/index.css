@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0a0f1f, #02040a);
+  color: #cde8ff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #00d2ff33;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #6ea8ff;
+}
+
+/* Main Layout */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Right Column (Live + History stacked) */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 1px solid #00d2ff22;
+  padding-left: 10px;
+}
+
+/* Panels */
+.panel {
+  background: rgba(11, 20, 37, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #00d2ff22;
+}
+
+.highlight {
+  border: 1px solid #00ffa355;
+}
+
+/* Camera */
+.camera {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.loading {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  border-radius: 10px;
+}
+
+/* Gesture */
+.gesture-box {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.gesture-name {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.gesture-action {
+  font-size: 18px;
+  color: #00ffa3;
+}
+
+/* Confidence */
+.confidence {
+  margin-top: 10px;
+}
+
+.confidence-text {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.bar {
+  height: 8px;
+  background: #1a2a3a;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00d2ff, #00ffa3);
+  transition: width 0.3s ease;
+}
+
+/* History */
+.history {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+  border-bottom: 1px solid #00d2ff22;
+}
+
+/* Description */
+.description {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #7fa8d8;
+}
+
+/* Status text */
+.status-text {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #00ffa3;
+}
+
+/* History styling */
+.history-gesture {
+  font-weight: bold;
+}
+
+.history-action {
+  color: #00d2ff;
+}
