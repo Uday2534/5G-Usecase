@@ -43,11 +43,11 @@ def perform_action(gesture):
     # CONTINUOUS SCROLL (NO COOLDOWN)
     # -------------------------------
     if gesture == "Palm":
-        pyautogui.scroll(-50)  # scroll down
+        pyautogui.scroll(-50)  # Scroll down
         return
 
     elif gesture == "Fist":
-        pyautogui.scroll(50)   # scroll up
+        pyautogui.scroll(50)   # Scroll up
         return
 
     # -------------------------------
@@ -155,15 +155,31 @@ async def send_data(data):
         clients.remove(dc)
 
 # -------------------------------
-# Main Loop
+# Main Loop (RTSP CAMERA ADDED)
 # -------------------------------
 async def main():
-    cap = cv2.VideoCapture(0)
+    # 🔥 YOUR 5G / LAN CAMERA RTSP LINK
+    camera_source = "rtsp://admin:admin123@192.168.128.10:554/avstream/channel=1/stream=1.sdp"
+
+    cap = cv2.VideoCapture(camera_source, cv2.CAP_FFMPEG)
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
+    if not cap.isOpened():
+        print("❌ Failed to open RTSP camera, falling back to webcam")
+        cap = cv2.VideoCapture(0)
 
     async def loop():
+        nonlocal cap
+
         while True:
             ret, frame = cap.read()
+
+            # 🔥 Reconnect logic
             if not ret:
+                print("⚠️ Camera disconnected... reconnecting")
+                cap.release()
+                cap = cv2.VideoCapture(camera_source, cv2.CAP_FFMPEG)
+                await asyncio.sleep(1)
                 continue
 
             frame = cv2.flip(frame, 1)
@@ -197,7 +213,7 @@ async def main():
                         raw_action
                     )
 
-            # 🔥 Perform action
+            # Perform action
             perform_action(gesture)
 
             # Encode frame
@@ -213,7 +229,7 @@ async def main():
 
             await send_data(data)
 
-            await asyncio.sleep(0.03)
+            await asyncio.sleep(0.01)  # 🔥 Lower delay for RTSP
 
     server = await websockets.serve(handler, "localhost", 8000)
     print("✅ Running on ws://localhost:8000")
